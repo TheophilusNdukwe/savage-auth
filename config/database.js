@@ -1,6 +1,8 @@
 // config/database.js
+
+//set up unique url
 module.exports = {
 
-    'url' : 'mongodb+srv://demo:demo@cluster0.q2ojb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', 
+    'url' : 'mongodb+srv://theondukwe:discursive1@cluster0.q2ojb.mongodb.net/demo?retryWrites=true&w=majority', 
     'dbName': 'demo'
 };

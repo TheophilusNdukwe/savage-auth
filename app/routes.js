@@ -8,7 +8,7 @@ module.exports = function(app, passport, db) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/profile', isLoggedIn, function(req, res) {//isLogged in checks to see if youre logged in
         db.collection('messages').find().toArray((err, result) => {
           if (err) return console.log(err)
           res.render('profile.ejs', {
@@ -36,7 +36,7 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.put('/messages', (req, res) => {
+    app.put('/messages/thumbUp', (req, res) => {
       db.collection('messages')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
@@ -51,8 +51,25 @@ module.exports = function(app, passport, db) {
       })
     })
 
+  app.put('/messages/thumbDown', (req, res) => {
+      db.collection('messages')
+      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+        $set: {
+          thumbUp:req.body.thumbUp - 1
+        }
+      }, {
+        sort: {_id: -1},
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+
+  
+  
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('messages').findOneAndDelete({ name: req.body.name, msg: req.body.msg }, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
@@ -83,7 +100,7 @@ module.exports = function(app, passport, db) {
         });
 
         // process the signup form
-        app.post('/signup', passport.authenticate('local-signup', {
+        app.post('/signup', passport.authenticate('local-signup', {//enable us to have 
             successRedirect : '/profile', // redirect to the secure profile section
             failureRedirect : '/signup', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages

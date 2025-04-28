@@ -1,5 +1,5 @@
 // config/passport.js
-
+//everything we need to set up server
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
