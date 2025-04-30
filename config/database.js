@@ -3,6 +3,6 @@
 //set up unique url
 module.exports = {
 
-    'url' : 'mongodb+srv://theondukwe:discursive1@cluster0.q2ojb.mongodb.net/demo?retryWrites=true&w=majority', 
-    'dbName': 'demo'
+    'url' : `mongodb+srv://${process.env.USER_ID}:${process.env.DB_password}@cluster0.vhrw8jw.mongodb.net/TaskManager?retryWrites=true&w=majority&appName=Cluster0`, 
+    'dbName': 'demoauth'
 };

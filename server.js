@@ -14,7 +14,7 @@ var morgan       = require('morgan'); //seeing all log of requests//look at requ
 var cookieParser = require('cookie-parser');//keep users loggged in
 var bodyParser   = require('body-parser');
 var session      = require('express-session');//keep users logged in
-
+require('dotenv').config();
 var configDB = require('./config/database.js');//instead of hardcoding we cand require our object
 
 var db
@@ -23,10 +23,10 @@ var db
 mongoose.connect(configDB.url, (err, database) => {//connecting  to database
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db);//call the routes file
-}); // connect to our database
+  require('./app/routes.js')(app, passport, db);
+})
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport);
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
